@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>قائمة المشردين</title>
+
+  <!-- خط عربي -->
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary-color: #ff9800;
+      --secondary-color: #ff5722;
+      --bg-gradient: linear-gradient(135deg, #f7f7f7, #ececec);
+      --header-gradient: linear-gradient(135deg, #111, #2c2c2c);
+      --shadow-light: rgba(0,0,0,0.08);
+      --shadow-dark: rgba(0,0,0,0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+      transition: all 0.3s ease;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Cairo', sans-serif;
+      background: var(--bg-gradient);
+      color: #333;
+      scroll-behavior: smooth;
+    }
+
+    header {
+      background: var(--header-gradient);
+      color: #fff;
+      padding: 25px 15px;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 34px;
+    }
+
+    header p {
+      margin-top: 8px;
+      color: #ccc;
+      font-size: 16px;
+    }
+
+    nav {
+      background: #1b1b1b;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      padding: 10px;
+      gap: 15px;
+      position: sticky;
+      top: 85px;
+      z-index: 900;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 16px;
+      padding: 8px 16px;
+      border-radius: 8px;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      background: var(--primary-color);
+      color: #000;
+      transform: scale(1.05);
+    }
+
+    .container {
+      padding: 30px 15px;
+      max-width: 800px;
+      margin: auto;
+    }
+
+    .container h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 30px;
+      color: #222;
+      position: relative;
+    }
+
+    .container h2::after {
+      content: '';
+      width: 60px;
+      height: 4px;
+      background: var(--primary-color);
+      display: block;
+      margin: 10px auto 0;
+      border-radius: 2px;
+    }
+
+    .members {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .member {
+      background: #fff;
+      border-radius: 16px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 6px 15px var(--shadow-light);
+      transition: transform 0.3s, box-shadow 0.3s;
+      font-size: 20px;
+    }
+
+    .member:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px var(--shadow-dark);
+    }
+
+    footer {
+      background: #111;
+      color: #ccc;
+      text-align: center;
+      padding: 20px 15px;
+      margin-top: 40px;
+      font-size: 14px;
+    }
+
+    /* Fade-in عند التمرير */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 480px) {
+      header h1 {
+        font-size: 26px;
+      }
+
+      .container h2 {
+        font-size: 22px;
+      }
+
+      .member {
+        font-size: 18px;
+        padding: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>قائمة المشردين</h1>
+    <p>أعضاء المجموعة بالترتيب</p>
+  </header>
+
+  <nav>
+    <a href="#">الرئيسية</a>
+    <a href="#">الأعضاء</a>
+    <a href="#">من نحن</a>
+    <a href="#">تواصل معنا</a>
+  </nav>
+
+  <div class="container">
+    <h2>الأعضاء</h2>
+
+    <div class="members">
+      <div class="member fade-in">ميديسي الواعي</div>
+      <div class="member fade-in">ميليو اللحاس</div>
+      <div class="member fade-in">اشيلاد مغالطة الشخصنه</div>
+      <div class="member fade-in">لوسيوس💥🔥</div>
+      <div class="member fade-in">ايتشيغو</div>
+    </div>
+  </div>
+
+  <footer>
+    <p>2026 ليحواك مشردين - جميع الحقوق محفوظة</p>
+  </footer>
+
+  <script>
+    const faders = document.querySelectorAll('.fade-in');
+
+    const appearOptions = { threshold: 0.2 };
+
+    const appearOnScroll = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      });
+    }, appearOptions);
+
+    faders.forEach(fader => appearOnScroll.observe(fader));
+  </script>
+
+</body>
+</html>
